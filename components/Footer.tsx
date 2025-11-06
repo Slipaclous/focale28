@@ -18,14 +18,14 @@ export default function Footer() {
     <footer className="relative bg-black border-t-4 border-zinc-900 overflow-hidden">
       {/* Texture papier photo */}
       <div 
-        className="absolute inset-0 opacity-[0.12] pointer-events-none"
+        className="absolute inset-0 opacity-[0.35] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
       {/* Bande de négatif en haut */}
-      <div className="absolute top-0 left-0 right-0 h-12 pointer-events-none opacity-25">
+      <div className="absolute top-0 left-0 right-0 h-12 pointer-events-none opacity-60">
         <div className="h-full flex items-center justify-between px-2">
           {[...Array(30)].map((_, i) => (
             <div key={i} className="w-2 h-8 bg-zinc-700 rounded-sm" />
@@ -164,7 +164,7 @@ export default function Footer() {
               {/* Métadonnées */}
               <div className="mt-8 pt-6 border-t border-zinc-900">
                 <div className="text-[10px] font-mono text-zinc-400 space-y-1">
-                  <div>15+ ANS D'EXPÉRIENCE</div>
+                  <div>15+ ANS D&apos;EXPÉRIENCE</div>
                   <div className="text-zinc-300">BELGIQUE • BRUXELLES</div>
                 </div>
               </div>

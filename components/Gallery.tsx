@@ -73,7 +73,7 @@ export default function Gallery() {
       <section id="gallery" ref={ref} className="relative py-32 px-4 bg-zinc-950 overflow-hidden">
         {/* Texture papier photo RC - Grain photographique visible */}
         <div 
-          className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-overlay"
+          className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundSize: '200px 200px',
@@ -81,14 +81,14 @@ export default function Gallery() {
         />
 
         {/* Bandes de négatif en haut et en bas */}
-        <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none opacity-30 hidden md:block">
+        <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none opacity-60 hidden md:block">
           <div className="h-full flex items-center justify-between px-2 bg-zinc-900">
             {[...Array(20)].map((_, i) => (
               <div key={i} className="w-3 h-10 bg-zinc-700 rounded-sm" />
             ))}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none opacity-30 hidden md:block">
+        <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none opacity-60 hidden md:block">
           <div className="h-full flex items-center justify-between px-2 bg-zinc-900">
             {[...Array(20)].map((_, i) => (
               <div key={i} className="w-3 h-10 bg-zinc-700 rounded-sm" />
@@ -248,7 +248,7 @@ export default function Gallery() {
 
             {/* Grain argentique */}
             <div 
-              className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay"
+              className="absolute inset-0 opacity-40 pointer-events-none mix-blend-overlay"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
               }}

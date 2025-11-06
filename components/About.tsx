@@ -24,7 +24,7 @@ export default function About() {
     <section id="about" ref={ref} className="relative py-32 px-4 bg-[#0a0a0a] overflow-hidden">
       {/* Texture papier baryté */}
       <div 
-        className="absolute inset-0 opacity-[0.12] pointer-events-none"
+        className="absolute inset-0 opacity-[0.35] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
@@ -33,7 +33,7 @@ export default function About() {
       {/* Cadre de diapositive style Kodachrome */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
-        animate={isInView ? { opacity: 0.5, scale: 1 } : { opacity: 0, scale: 0.95 }}
+        animate={isInView ? { opacity: 0.8, scale: 1 } : { opacity: 0, scale: 0.95 }}
         transition={{ duration: 1.2 }}
         className="absolute top-12 right-12 w-64 h-64 border-8 border-zinc-800 pointer-events-none hidden lg:block"
         style={{
@@ -47,7 +47,7 @@ export default function About() {
       </motion.div>
 
       {/* Bande de négatif photo en fond */}
-      <div className="absolute top-0 left-0 right-0 h-20 opacity-25 pointer-events-none hidden md:block">
+      <div className="absolute top-0 left-0 right-0 h-20 opacity-50 pointer-events-none hidden md:block">
         <div className="h-full flex items-center justify-between px-4">
           {[...Array(15)].map((_, i) => (
             <div key={i} className="w-4 h-12 bg-zinc-700 rounded-sm" />
@@ -66,7 +66,7 @@ export default function About() {
           {/* Numéro de référence style archive photo */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 0.6 } : { opacity: 0 }}
+            animate={isInView ? { opacity: 0.9 } : { opacity: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
             className="font-mono text-xs text-zinc-400 tracking-widest mb-6"
           >
@@ -91,7 +91,7 @@ export default function About() {
               <motion.div
                 key={i}
                 initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 0.5 } : { opacity: 0 }}
+                animate={isInView ? { opacity: 0.8 } : { opacity: 0 }}
                 transition={{ delay: 0.5 + i * 0.1 }}
                 className="absolute w-px h-2 bg-zinc-700 -translate-x-1/2"
                 style={{ left: `${pos * 100}%`, top: '-2px' }}
@@ -155,9 +155,9 @@ export default function About() {
               className="hidden md:block"
             >
               <div className="text-xs font-serif text-zinc-100 italic transform -rotate-3 border border-zinc-200 bg-zinc-950/50 p-3 rounded">
-                "Capturer l'essence
+                &ldquo;Capturer l&apos;essence
                 <br />
-                de chaque instant"
+                de chaque instant&rdquo;
               </div>
             </motion.div>
           </motion.div>
@@ -176,16 +176,16 @@ export default function About() {
               </p>
 
               <p className="text-zinc-400 leading-relaxed font-serif">
-                Avec plus de <span className="text-zinc-300">15 ans d'expérience</span> dans 
+                Avec plus de <span className="text-zinc-300">15 ans d&apos;expérience</span> dans 
                 le domaine de la photographie professionnelle, je mets mon expertise et ma 
-                passion au service de vos événements d'entreprise, cérémonies, portraits et 
+                passion au service de vos événements d&apos;entreprise, cérémonies, portraits et 
                 reportages.
               </p>
 
               <p className="text-zinc-400 leading-relaxed font-serif">
-                Que ce soit pour capturer l'ambiance d'un événement corporate, l'émotion 
-                d'une cérémonie, ou la beauté d'un portrait, j'apporte une approche artistique 
-                et technique qui sublime chaque instant. Ma spécialité s'étend également à la 
+                Que ce soit pour capturer l&apos;ambiance d&apos;un événement corporate, l&apos;émotion 
+                d&apos;une cérémonie, ou la beauté d&apos;un portrait, j&apos;apporte une approche artistique 
+                et technique qui sublime chaque instant. Ma spécialité s&apos;étend également à la 
                 photographie mobilière et immobilière, offrant ainsi une gamme complète de 
                 services photographiques.
               </p>
@@ -200,7 +200,7 @@ export default function About() {
             >
               <div className="border-l-4 border-zinc-700 pl-6 py-4">
                 <p className="text-xl md:text-2xl font-serif text-zinc-300 italic leading-relaxed">
-                  Chaque moment mérite d'être capturé avec l'attention et la qualité qu'il mérite.
+                  Chaque moment mérite d&apos;être capturé avec l&apos;attention et la qualité qu&apos;il mérite.
                 </p>
               </div>
               
@@ -281,7 +281,7 @@ export default function About() {
           {/* Note de bas de page style légende */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 0.7 } : { opacity: 0 }}
+            animate={isInView ? { opacity: 0.9 } : { opacity: 0 }}
             transition={{ duration: 1, delay: 2 }}
             className="mt-8 text-center font-mono text-xs text-zinc-400 tracking-wider"
           >
@@ -293,7 +293,7 @@ export default function About() {
       {/* Coin inférieur droit - Tampon style archive */}
       <motion.div
         initial={{ opacity: 0, rotate: 10, scale: 0.8 }}
-        animate={isInView ? { opacity: 0.4, rotate: 12, scale: 1 } : { opacity: 0, rotate: 10, scale: 0.8 }}
+        animate={isInView ? { opacity: 0.7, rotate: 12, scale: 1 } : { opacity: 0, rotate: 10, scale: 0.8 }}
         transition={{ duration: 1, delay: 1.5 }}
         className="absolute bottom-12 right-12 pointer-events-none hidden xl:block"
       >

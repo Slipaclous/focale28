@@ -37,7 +37,7 @@ export default function Hero() {
       className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
     >
       {/* Texture papier photo grain argentique */}
-      <div className="absolute inset-0 opacity-[0.15] pointer-events-none mix-blend-overlay">
+      <div className="absolute inset-0 opacity-[0.35] pointer-events-none mix-blend-overlay">
         <div 
           className="w-full h-full"
           style={{
@@ -53,7 +53,7 @@ export default function Hero() {
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 3, delay: i * 0.1, repeat: Infinity }}
               className="w-8 h-2 bg-zinc-700 ml-2 rounded-sm"
             />
@@ -100,13 +100,13 @@ export default function Hero() {
       </motion.div>
 
       {/* Planche contact vintage en arrière-plan */}
-      <div className="absolute inset-0 z-[1] pointer-events-none opacity-20">
+      <div className="absolute inset-0 z-[1] pointer-events-none opacity-40">
         <div className="w-full h-full grid grid-cols-6 grid-rows-4 gap-2 p-8">
           {[...Array(24)].map((_, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: [0.2, 0.4, 0.2], scale: [0.9, 1, 0.9] }}
+              animate={{ opacity: [0.4, 0.6, 0.4], scale: [0.9, 1, 0.9] }}
               transition={{ 
                 duration: 4, 
                 delay: i * 0.2,
@@ -143,7 +143,7 @@ export default function Hero() {
                   stroke="rgba(255,255,255,0.15)"
                   strokeWidth="0.5"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: [0.15, 0.3, 0.15] }}
+                  animate={{ opacity: [0.4, 0.6, 0.4] }}
                   transition={{ 
                     duration: 3, 
                     delay: i * 0.1,
@@ -240,7 +240,7 @@ export default function Hero() {
             className="relative"
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
-              Capturer l'instant,
+              Capturer l&apos;instant,
             </h1>
           </motion.div>
           
@@ -251,7 +251,7 @@ export default function Hero() {
             className="relative"
           >
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
-              révéler l'<span className="italic text-zinc-300">émotion</span>
+              révéler l&apos;<span className="italic text-zinc-300">émotion</span>
             </h2>
           </motion.div>
         </motion.div>
@@ -287,7 +287,7 @@ export default function Hero() {
           <span className="hidden md:inline">◐</span>
           <span>PHOTOGRAPHE ÉVÉNEMENTIEL</span>
           <span className="text-zinc-500">|</span>
-          <span>15 ANS D'EXPÉRIENCE</span>
+          <span>15 ANS D&apos;EXPÉRIENCE</span>
           <span className="hidden md:inline">◑</span>
         </motion.div>
 

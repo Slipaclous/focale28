@@ -37,14 +37,14 @@ export default function Contact() {
     <section id="contact" ref={ref} className="relative py-32 px-4 bg-[#0a0a0a] overflow-hidden">
       {/* Texture papier ligné */}
       <div 
-        className="absolute inset-0 opacity-[0.12] pointer-events-none"
+        className="absolute inset-0 opacity-[0.35] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
       {/* Lignes de carnet en arrière-plan */}
-      <div className="absolute inset-0 opacity-[0.15] pointer-events-none">
+      <div className="absolute inset-0 opacity-[0.35] pointer-events-none">
         <div className="h-full flex flex-col justify-around">
           {[...Array(20)].map((_, i) => (
             <div key={i} className="h-px bg-zinc-800" />
@@ -91,7 +91,7 @@ export default function Contact() {
             <div className="relative bg-zinc-950 border-2 border-zinc-900 p-8 shadow-2xl">
               {/* Texture carte */}
               <div 
-                className="absolute inset-0 opacity-[0.15] pointer-events-none"
+                className="absolute inset-0 opacity-[0.35] pointer-events-none"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
                 }}
@@ -183,9 +183,9 @@ export default function Contact() {
             >
               <div className="bg-yellow-100/5 border border-yellow-800/20 p-4 shadow-lg" style={{ transform: 'rotate(-1deg)' }}>
                 <div className="text-xs text-zinc-200 font-serif italic leading-relaxed">
-                  "Chaque projet est une nouvelle
+                  &ldquo;Chaque projet est une nouvelle
                   <br />
-                  histoire à raconter en images"
+                  histoire à raconter en images&rdquo;
                 </div>
                 <div className="mt-2 text-[10px] font-mono text-yellow-100/20">
                   — A.H.
@@ -217,7 +217,7 @@ export default function Contact() {
             >
               {/* Texture papier formulaire */}
               <div 
-                className="absolute inset-0 opacity-[0.15] pointer-events-none"
+                className="absolute inset-0 opacity-[0.35] pointer-events-none"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
                 }}

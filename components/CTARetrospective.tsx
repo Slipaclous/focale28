@@ -13,7 +13,7 @@ export default function CTARetrospective() {
     <section id="retrospective" ref={ref} className="relative py-32 px-4 bg-black overflow-hidden">
       {/* Texture papier kraft vintage */}
       <div 
-        className="absolute inset-0 opacity-[0.15] pointer-events-none"
+        className="absolute inset-0 opacity-[0.35] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/1000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='6' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
@@ -22,7 +22,7 @@ export default function CTARetrospective() {
       {/* Spots lumineux style projecteur de diaporama */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView ? { opacity: 0.35, scale: 1 } : { opacity: 0, scale: 0.8 }}
+        animate={isInView ? { opacity: 0.6, scale: 1 } : { opacity: 0, scale: 0.8 }}
         transition={{ duration: 1.5 }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gradient-radial from-zinc-800/30 via-transparent to-transparent blur-3xl pointer-events-none"
       />
@@ -51,7 +51,7 @@ export default function CTARetrospective() {
           <div className="relative bg-zinc-950 border-4 border-zinc-900 p-8 md:p-16 shadow-2xl">
             {/* Texture carton */}
             <div 
-              className="absolute inset-0 opacity-[0.18] pointer-events-none"
+              className="absolute inset-0 opacity-[0.35] pointer-events-none"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/1000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
               }}
@@ -123,7 +123,7 @@ export default function CTARetrospective() {
               >
                 <div className="border-l-2 border-zinc-800 pl-6 py-4">
                   <p className="text-base md:text-lg text-zinc-400 leading-relaxed font-serif">
-                    Découvrez une sélection de nos plus beaux moments capturés au cours de l'année 2024. 
+                    Découvrez une sélection de nos plus beaux moments capturés au cours de l&apos;année 2024. 
                     Des événements corporate aux cérémonies intimes, revivez les émotions et les instants précieux 
                     immortalisés à travers mon objectif.
                   </p>
@@ -247,7 +247,7 @@ export default function CTARetrospective() {
             {/* Cachet "ARCHIVÉ" en filigrane */}
             <motion.div
               initial={{ opacity: 0, rotate: -15, scale: 0.8 }}
-              animate={isInView ? { opacity: 0.12, rotate: -12, scale: 1 } : { opacity: 0, rotate: -15, scale: 0.8 }}
+              animate={isInView ? { opacity: 0.3, rotate: -12, scale: 1 } : { opacity: 0, rotate: -15, scale: 0.8 }}
               transition={{ duration: 1.5, delay: 1.8 }}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden lg:block"
             >
