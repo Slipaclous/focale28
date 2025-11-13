@@ -9,54 +9,54 @@ import { X } from 'lucide-react'
 const galleryImages = [
   {
     id: 1,
-    src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
-    alt: 'Événement corporate',
-    title: 'Conférence Corporate',
+    src: '/images/Mariage - Alain Heymans focale 2.8 - 001.jpg',
+    alt: 'Mariage',
+    title: 'Mariage',
     settings: 'f/2.8 • ISO 400 • 1/125s',
     film: 'KODAK 400',
     frame: '001A',
   },
   {
     id: 2,
-    src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80',
-    alt: 'Team building',
-    title: 'Team Building',
+    src: '/images/Event - Alain Heymans focale 2.8 -30.jpg',
+    alt: 'Événement corporate',
+    title: 'Événement Corporate',
     settings: 'f/4.0 • ISO 800 • 1/250s',
     film: 'FUJI 800',
     frame: '007B',
   },
   {
     id: 3,
-    src: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80',
-    alt: 'Cérémonie',
-    title: 'Cérémonie',
+    src: '/images/Portrait - Alain Heymans focale 2.8 -1.jpg',
+    alt: 'Portrait',
+    title: 'Portrait',
     settings: 'f/2.8 • ISO 320 • 1/160s',
     film: 'ILFORD HP5',
     frame: '012A',
   },
   {
     id: 4,
-    src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
-    alt: 'Portrait professionnel',
-    title: 'Portrait Professionnel',
+    src: '/images/Nightlife - Alain Heymans focale 2.8 -221.jpg',
+    alt: 'Nightlife',
+    title: 'Nightlife',
     settings: 'f/1.8 • ISO 200 • 1/200s',
     film: 'PORTRA 400',
     frame: '024C',
   },
   {
     id: 5,
-    src: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80',
-    alt: 'Événement lifestyle',
-    title: 'Événement Lifestyle',
+    src: '/images/Concert - Alain Heymans focale 2.8 -10.jpg',
+    alt: 'Concert',
+    title: 'Concert',
     settings: 'f/2.8 • ISO 640 • 1/100s',
     film: 'EKTAR 100',
     frame: '018A',
   },
   {
     id: 6,
-    src: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80',
-    alt: 'Reportage',
-    title: 'Reportage',
+    src: '/images/Famille - Alain Heymans focale 2.8 -12.jpg',
+    alt: 'Famille',
+    title: 'Famille',
     settings: 'f/4.0 • ISO 400 • 1/125s',
     film: 'TRI-X 400',
     frame: '032B',
@@ -70,31 +70,8 @@ export default function Gallery() {
 
   return (
     <>
-      <section id="gallery" ref={ref} className="relative py-32 px-4 bg-zinc-950 overflow-hidden">
-        {/* Texture papier photo RC - Grain photographique visible */}
-        <div 
-          className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-            backgroundSize: '200px 200px',
-          }}
-        />
+      <section id="gallery" ref={ref} className="relative py-32 px-4 bg-black overflow-hidden">
 
-        {/* Bandes de négatif en haut et en bas */}
-        <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none opacity-60 hidden md:block">
-          <div className="h-full flex items-center justify-between px-2 bg-zinc-900">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className="w-3 h-10 bg-zinc-700 rounded-sm" />
-            ))}
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none opacity-60 hidden md:block">
-          <div className="h-full flex items-center justify-between px-2 bg-zinc-900">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className="w-3 h-10 bg-zinc-700 rounded-sm" />
-            ))}
-          </div>
-        </div>
 
         <div className="relative max-w-7xl mx-auto z-10">
           {/* En-tête avec style archive */}
@@ -128,7 +105,7 @@ export default function Gallery() {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="text-sm font-mono text-zinc-300 tracking-wider uppercase"
             >
-              Sélection • {galleryImages.length} épreuves
+              Sélection • {galleryImages.length} photos
             </motion.p>
           </motion.div>
 
@@ -245,14 +222,6 @@ export default function Gallery() {
           >
             {/* Effet de lumière diffuse de table lumineuse */}
             <div className="absolute inset-0 bg-gradient-radial from-zinc-900/50 via-zinc-950 to-black pointer-events-none" />
-
-            {/* Grain argentique */}
-            <div 
-              className="absolute inset-0 opacity-40 pointer-events-none mix-blend-overlay"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-              }}
-            />
 
             {/* Bouton fermer style bouton de chambre noire */}
             <motion.button

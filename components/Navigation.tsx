@@ -2,14 +2,21 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Instagram, Facebook, Linkedin } from 'lucide-react'
 
 const navItems = [
   { name: 'Accueil', href: '#hero' },
   { name: 'À Propos', href: '#about' },
   { name: 'Portfolio', href: '#gallery' },
+  { name: 'Témoignages', href: '#testimonials' },
   { name: 'Rétrospective', href: '#retrospective' },
   { name: 'Contact', href: '#contact' },
+]
+
+const socialLinks = [
+  { name: 'Instagram', href: 'https://www.instagram.com/focale28', Icon: Instagram },
+  { name: 'Facebook', href: 'https://www.facebook.com/focale28', Icon: Facebook },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/focale28', Icon: Linkedin },
 ]
 
 export default function Navigation() {
@@ -51,14 +58,6 @@ export default function Navigation() {
         style={{ backgroundColor }}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       >
-        {/* Texture grain subtile */}
-        <div 
-          className="absolute inset-0 opacity-[0.35] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          }}
-        />
-
         {/* Bordure inférieure progressive */}
         <motion.div 
           style={{ opacity: borderOpacity }}
@@ -104,36 +103,57 @@ export default function Navigation() {
             </motion.a>
 
             {/* Menu Desktop - Style barre de mesure */}
-            <div className="hidden md:flex items-center gap-1">
-              {navItems.map((item, index) => (
-                <div key={item.name} className="relative">
+            <div className="hidden md:flex items-center gap-6">
+              <div className="flex items-center gap-1">
+                {navItems.map((item, index) => (
+                  <div key={item.name} className="relative">
+                    <motion.a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        handleNavClick(item.href)
+                      }}
+                      className="group relative px-4 py-2 block"
+                      whileHover={{ y: -1 }}
+                    >
+                      {/* Texte du menu */}
+                      <span className="text-xs font-mono text-zinc-400 group-hover:text-zinc-200 uppercase tracking-wider transition-colors relative z-10">
+                        {item.name}
+                      </span>
+
+                      {/* Marque de mesure au-dessus */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-1 bg-zinc-800 group-hover:bg-zinc-300 group-hover:h-1.5 transition-all" />
+
+                      {/* Ligne de soulignement */}
+                      <div className="absolute bottom-0 left-0 right-0 h-px bg-zinc-900 group-hover:bg-zinc-700 transition-colors" />
+                    </motion.a>
+
+                    {/* Séparateur vertical entre les items (sauf le dernier) */}
+                    {index < navItems.length - 1 && (
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-3 bg-zinc-900" />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="h-6 w-px bg-zinc-900" />
+
+              <div className="flex items-center gap-3">
+                {socialLinks.map(({ name, href, Icon }) => (
                   <motion.a
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handleNavClick(item.href)
-                    }}
-                    className="group relative px-4 py-2 block"
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative flex items-center justify-center w-9 h-9 border border-zinc-800 rounded-full text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-colors"
                     whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={name}
                   >
-                    {/* Texte du menu */}
-                    <span className="text-xs font-mono text-zinc-400 group-hover:text-zinc-200 uppercase tracking-wider transition-colors relative z-10">
-                      {item.name}
-                    </span>
-
-                    {/* Marque de mesure au-dessus */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-1 bg-zinc-800 group-hover:bg-zinc-300 group-hover:h-1.5 transition-all" />
-
-                    {/* Ligne de soulignement */}
-                    <div className="absolute bottom-0 left-0 right-0 h-px bg-zinc-900 group-hover:bg-zinc-700 transition-colors" />
+                    <Icon className="w-4 h-4" />
                   </motion.a>
-
-                  {/* Séparateur vertical entre les items (sauf le dernier) */}
-                  {index < navItems.length - 1 && (
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-3 bg-zinc-900" />
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             {/* Bouton Menu Mobile - Style carré */}
@@ -174,14 +194,6 @@ export default function Navigation() {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed top-16 left-0 right-0 z-40 md:hidden overflow-hidden bg-black border-b-2 border-zinc-900"
       >
-        {/* Texture */}
-        <div 
-          className="absolute inset-0 opacity-[0.2] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          }}
-        />
-
         <div className="relative px-4 py-6 space-y-1">
           {navItems.map((item, index) => (
             <motion.div
@@ -219,6 +231,25 @@ export default function Navigation() {
               </a>
             </motion.div>
           ))}
+
+          <div className="pt-4 mt-4 border-t border-zinc-900">
+            <div className="flex items-center justify-center gap-4">
+              {socialLinks.map(({ name, href, Icon }) => (
+                <motion.a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 border border-zinc-800 rounded-full text-zinc-400 hover:text-zinc-100 hover:border-zinc-600 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={name}
+                >
+                  <Icon className="w-4 h-4" />
+                </motion.a>
+              ))}
+            </div>
+          </div>
 
           {/* Note en bas du menu mobile */}
           <div className="pt-4 mt-4 border-t border-zinc-900">

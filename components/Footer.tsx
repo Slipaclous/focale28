@@ -16,22 +16,6 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-black border-t-4 border-zinc-900 overflow-hidden">
-      {/* Texture papier photo */}
-      <div 
-        className="absolute inset-0 opacity-[0.35] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Bande de négatif en haut */}
-      <div className="absolute top-0 left-0 right-0 h-12 pointer-events-none opacity-60">
-        <div className="h-full flex items-center justify-between px-2">
-          {[...Array(30)].map((_, i) => (
-            <div key={i} className="w-2 h-8 bg-zinc-700 rounded-sm" />
-          ))}
-        </div>
-      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 py-16 z-10">
         {/* Grille principale */}
@@ -65,17 +49,7 @@ export default function Footer() {
                 </p>
               </div>
 
-              {/* Cachet d'authenticité */}
-              <div className="inline-block border-2 border-zinc-900 p-3">
-                <div className="text-center">
-                  <div className="text-[10px] font-mono text-zinc-400 tracking-widest mb-1">
-                    PHOTOGRAPHE CERTIFIÉ
-                  </div>
-                  <div className="text-2xl font-serif text-zinc-300 font-bold">
-                    {currentYear}
-                  </div>
-                </div>
-              </div>
+              
             </motion.div>
           </div>
 
@@ -109,24 +83,7 @@ export default function Footer() {
                     </div>
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="tel:+32"
-                    className="group flex items-start gap-3 transition-all"
-                  >
-                    <div className="w-8 h-8 border border-zinc-900 bg-zinc-950 flex items-center justify-center group-hover:border-zinc-700 transition-colors mt-0.5">
-                      <Phone className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-0.5">
-                        Téléphone
-                      </div>
-                      <div className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors font-mono">
-                        +324777777
-                      </div>
-                    </div>
-                  </a>
-                </li>
+               
               
               </ul>
             </motion.div>
@@ -202,7 +159,7 @@ export default function Footer() {
               <Facebook className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/focale28"
               target="_blank"
               rel="noopener noreferrer"
               className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"
@@ -227,25 +184,6 @@ export default function Footer() {
         
       </div>
 
-      {/* Marque d'impression en coin */}
-      <motion.div
-        initial={{ opacity: 0, rotate: -5 }}
-        whileInView={{ opacity: 0.7, rotate: -3 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.8 }}
-        className="absolute bottom-4 left-4 pointer-events-none hidden lg:block"
-      >
-        <div className="w-24 h-24 border-4 border-zinc-900 rounded-full flex items-center justify-center transform -rotate-12">
-          <div className="text-center">
-            <div className="text-[10px] font-mono text-zinc-300 tracking-widest">
-              SINCE
-            </div>
-            <div className="text-xl font-serif text-zinc-300 font-bold">
-              2009
-            </div>
-          </div>
-        </div>
-      </motion.div>
     </footer>
   )
 }

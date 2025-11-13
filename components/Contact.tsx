@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Mail, Phone, Globe } from 'lucide-react'
 
@@ -13,10 +13,22 @@ interface FormData {
   message: string
 }
 
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void
+      execute: (siteKey: string, options: { action: string }) => Promise<string>
+    }
+  }
+}
+
 export default function Contact() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false)
 
   const {
     register,
@@ -25,32 +37,99 @@ export default function Contact() {
     reset,
   } = useForm<FormData>()
 
+  // Charger le script reCAPTCHA
+  useEffect(() => {
+    const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+
+    if (!recaptchaSiteKey) {
+      console.warn('NEXT_PUBLIC_RECAPTCHA_SITE_KEY non configurée, reCAPTCHA désactivé')
+      setRecaptchaLoaded(true) // Permettre l'envoi sans reCAPTCHA en développement
+      return
+    }
+
+    // Vérifier si le script est déjà chargé
+    if (window.grecaptcha) {
+      setRecaptchaLoaded(true)
+      return
+    }
+
+    // Charger le script reCAPTCHA
+    const script = document.createElement('script')
+    script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`
+    script.async = true
+    script.defer = true
+    script.onload = () => {
+      window.grecaptcha.ready(() => {
+        setRecaptchaLoaded(true)
+      })
+    }
+    document.head.appendChild(script)
+
+    return () => {
+      // Nettoyer le script si le composant est démonté
+      const existingScript = document.querySelector(`script[src*="recaptcha"]`)
+      if (existingScript) {
+        // On ne supprime pas le script car il peut être utilisé ailleurs
+      }
+    }
+  }, [])
+
   const onSubmit = async (data: FormData) => {
-    console.log('Données du formulaire:', data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsSubmitted(true)
-    reset()
-    setTimeout(() => setIsSubmitted(false), 5000)
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      let recaptchaToken: string | null = null
+
+      // Obtenir le token reCAPTCHA si configuré
+      const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+      if (recaptchaSiteKey && window.grecaptcha) {
+        try {
+          recaptchaToken = await window.grecaptcha.execute(recaptchaSiteKey, {
+            action: 'submit_contact_form',
+          })
+        } catch (recaptchaError) {
+          console.error('Erreur reCAPTCHA:', recaptchaError)
+          setError('Erreur lors de la vérification reCAPTCHA. Veuillez réessayer.')
+          setIsSubmitting(false)
+          return
+        }
+      }
+
+      // Envoyer les données à l'API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...data,
+          recaptchaToken,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Une erreur est survenue lors de l\'envoi du message')
+      }
+
+      // Succès
+      setIsSubmitted(true)
+      reset()
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 5000)
+    } catch (err) {
+      console.error('Erreur lors de l\'envoi:', err)
+      setError(err instanceof Error ? err.message : 'Une erreur est survenue. Veuillez réessayer.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
-    <section id="contact" ref={ref} className="relative py-32 px-4 bg-[#0a0a0a] overflow-hidden">
-      {/* Texture papier ligné */}
-      <div 
-        className="absolute inset-0 opacity-[0.35] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Lignes de carnet en arrière-plan */}
-      <div className="absolute inset-0 opacity-[0.35] pointer-events-none">
-        <div className="h-full flex flex-col justify-around">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className="h-px bg-zinc-800" />
-          ))}
-        </div>
-      </div>
+    <section id="contact" ref={ref} className="relative py-32 px-4 bg-black overflow-hidden">
 
       <div className="relative max-w-7xl mx-auto z-10">
         {/* En-tête avec style formulaire professionnel */}
@@ -73,7 +152,7 @@ export default function Contact() {
             transition={{ duration: 1.2, delay: 0.5 }}
             className="relative w-64 h-px bg-zinc-800 mx-auto mt-6"
           >
-            <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-[#0a0a0a] px-3 text-[10px] font-mono text-zinc-400">
+            <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-black px-3 text-[10px] font-mono text-zinc-400">
               {new Date().getFullYear()}
             </div>
           </motion.div>
@@ -89,14 +168,6 @@ export default function Contact() {
           >
             {/* Carte de visite principale */}
             <div className="relative bg-zinc-950 border-2 border-zinc-900 p-8 shadow-2xl">
-              {/* Texture carte */}
-              <div 
-                className="absolute inset-0 opacity-[0.35] pointer-events-none"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-                }}
-              />
-
               <div className="relative space-y-6">
                 {/* Logo simplifié */}
                 <div className="mb-8">
@@ -136,23 +207,7 @@ export default function Contact() {
                     </div>
                   </motion.a>
 
-                  <motion.a
-                    href="tel:+32"
-                    whileHover={{ x: 4 }}
-                    className="group flex items-center gap-4 transition-all"
-                  >
-                    <div className="w-10 h-10 border border-zinc-800 bg-zinc-900/50 flex items-center justify-center group-hover:border-zinc-700 transition-colors">
-                      <Phone className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">
-                        Téléphone
-                      </div>
-                      <div className="text-sm text-zinc-200 group-hover:text-white transition-colors font-mono">
-                        +324777777
-                      </div>
-                    </div>
-                  </motion.a>
+                 
                 </div>
 
                 {/* Horaires style annotation */}
@@ -174,24 +229,7 @@ export default function Contact() {
               <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-zinc-800" />
             </div>
 
-            {/* Note adhésive */}
-            <motion.div
-              initial={{ opacity: 0, rotate: -2 }}
-              animate={isInView ? { opacity: 1, rotate: -1 } : { opacity: 0, rotate: -2 }}
-              transition={{ duration: 0.8, delay: 1 }}
-              className="hidden lg:block"
-            >
-              <div className="bg-yellow-100/5 border border-yellow-800/20 p-4 shadow-lg" style={{ transform: 'rotate(-1deg)' }}>
-                <div className="text-xs text-zinc-200 font-serif italic leading-relaxed">
-                  &ldquo;Chaque projet est une nouvelle
-                  <br />
-                  histoire à raconter en images&rdquo;
-                </div>
-                <div className="mt-2 text-[10px] font-mono text-yellow-100/20">
-                  — A.H.
-                </div>
-              </div>
-            </motion.div>
+           
           </motion.div>
 
           {/* Colonne droite - Formulaire style fiche de commande */}
@@ -215,14 +253,6 @@ export default function Contact() {
               onSubmit={handleSubmit(onSubmit)}
               className="relative bg-zinc-950 border-2 border-zinc-900 p-8 shadow-2xl"
             >
-              {/* Texture papier formulaire */}
-              <div 
-                className="absolute inset-0 opacity-[0.35] pointer-events-none"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-                }}
-              />
-
               <div className="relative space-y-6">
                 {/* Champ Nom */}
                 <div>
@@ -295,6 +325,22 @@ export default function Contact() {
                   )}
                 </div>
 
+                {/* Message d'erreur */}
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="border-2 border-red-900/30 bg-red-950/20 p-4"
+                  >
+                    <div className="text-xs font-mono text-red-500/50 uppercase tracking-wider mb-1">
+                      Erreur
+                    </div>
+                    <div className="text-sm text-red-400/60 font-serif">
+                      {error}
+                    </div>
+                  </motion.div>
+                )}
+
                 {/* Message de confirmation */}
                 {isSubmitted && (
                   <motion.div
@@ -315,12 +361,13 @@ export default function Contact() {
                 <div className="pt-4">
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                    className="relative w-full group"
+                    disabled={isSubmitting || !recaptchaLoaded}
+                    whileHover={!isSubmitting ? { scale: 1.01 } : {}}
+                    whileTap={!isSubmitting ? { scale: 0.99 } : {}}
+                    className="relative w-full group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <div className="relative bg-white text-black py-4 px-8 font-mono text-sm uppercase tracking-widest transition-all duration-300 group-hover:bg-zinc-200">
-                      Envoyer la demande
+                    <div className="relative bg-white text-black py-4 px-8 font-mono text-sm uppercase tracking-widest transition-all duration-300 group-hover:bg-zinc-200 disabled:group-hover:bg-white">
+                      {isSubmitting ? 'Envoi en cours...' : 'Envoyer la demande'}
                       
                       {/* Perforations décoratives */}
                       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-zinc-950 rounded-full" />

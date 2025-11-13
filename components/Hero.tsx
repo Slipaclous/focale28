@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(true)
@@ -34,18 +35,8 @@ export default function Hero() {
     <section 
       ref={containerRef}
       id="hero" 
-      className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
+      className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* Texture papier photo grain argentique */}
-      <div className="absolute inset-0 opacity-[0.35] pointer-events-none mix-blend-overlay">
-        <div 
-          className="w-full h-full"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='6' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")`,
-          }}
-        />
-      </div>
-
       {/* Bandes de film 35mm sur les côtés */}
       <div className="absolute left-0 top-0 bottom-0 w-12 bg-black border-r border-zinc-800 opacity-60 pointer-events-none">
         <div className="h-full flex flex-col justify-around py-4">
@@ -77,47 +68,20 @@ export default function Hero() {
       {/* Image de fond avec effet chambre noire */}
       <motion.div 
         style={{ opacity, scale }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 bg-black"
       >
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80&auto=format&fit=crop')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'contrast(1.1) brightness(0.7)',
-          }}
+        <Image
+          src="/images/hero.jpg"
+          alt="Hero background"
+          fill
+          className="object-cover"
+          priority
+          quality={90}
         />
-        {/* Vignette photographique naturelle */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%)'
-          }}
-        />
-        {/* Overlay avec dégradé subtil */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
+        {/* Overlay sombre pour améliorer la lisibilité du texte */}
+        <div className="absolute inset-0 bg-black/60" />
       </motion.div>
 
-      {/* Planche contact vintage en arrière-plan */}
-      <div className="absolute inset-0 z-[1] pointer-events-none opacity-40">
-        <div className="w-full h-full grid grid-cols-6 grid-rows-4 gap-2 p-8">
-          {[...Array(24)].map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: [0.4, 0.6, 0.4], scale: [0.9, 1, 0.9] }}
-              transition={{ 
-                duration: 4, 
-                delay: i * 0.2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="border border-white/20 bg-white/5"
-            />
-          ))}
-        </div>
-      </div>
 
       {/* Contenu principal */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
