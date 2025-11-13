@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Mail, Phone, Globe } from 'lucide-react'
+import { Mail, Phone, Globe, MapPin } from 'lucide-react'
 
 interface FormData {
   name: string
@@ -228,6 +228,115 @@ export default function Contact() {
               <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-zinc-800" />
               <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-zinc-800" />
             </div>
+
+            {/* Carte de zone d'intervention */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              className="mt-8"
+            >
+              <div className="bg-zinc-950 border-2 border-zinc-900 p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <MapPin className="w-4 h-4 text-zinc-400" />
+                  <h3 className="text-sm font-mono text-zinc-400 uppercase tracking-wider">
+                    Zone d&apos;intervention
+                  </h3>
+                </div>
+                
+                {/* Carte SVG compacte */}
+                <div className="relative w-full h-[200px] bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
+                  <svg
+                    viewBox="15 15 70 70"
+                    className="w-full h-full"
+                    preserveAspectRatio="xMidYMid meet"
+                  >
+                    <defs>
+                      <pattern
+                        id="contactGrid"
+                        width="10"
+                        height="10"
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <path
+                          d="M 10 0 L 0 0 0 10"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.02)"
+                          strokeWidth="0.5"
+                        />
+                      </pattern>
+                      <radialGradient id="contactCircleGradient" cx="50%" cy="50%">
+                        <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
+                        <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                      </radialGradient>
+                    </defs>
+
+                    <rect width="100" height="100" fill="url(#contactGrid)" />
+
+                    {/* Cercle de zone */}
+                    <motion.circle
+                      cx="40"
+                      cy="48"
+                      r="35"
+                      fill="url(#contactCircleGradient)"
+                      stroke="rgba(255,255,255,0.15)"
+                      strokeWidth="0.4"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                      transition={{ duration: 1, delay: 1.4 }}
+                    />
+
+                    {/* Villes */}
+                    {[
+                      { name: 'Bruxelles', x: 60, y: 30 },
+                      { name: 'Mons', x: 40, y: 55 },
+                      { name: 'Tournai', x: 20, y: 60 },
+                    ].map((city, index) => (
+                      <g key={city.name}>
+                        <motion.circle
+                          cx={city.x}
+                          cy={city.y}
+                          r="1.2"
+                          fill="rgba(255,255,255,0.6)"
+                          initial={{ scale: 0 }}
+                          animate={isInView ? { scale: 1 } : { scale: 0 }}
+                          transition={{ duration: 0.4, delay: 1.5 + index * 0.1 }}
+                        />
+                        <motion.text
+                          x={city.x}
+                          y={city.y - 2}
+                          textAnchor="middle"
+                          fontSize="3"
+                          fill="rgba(255,255,255,0.7)"
+                          fontFamily="serif"
+                          fontWeight="500"
+                          initial={{ opacity: 0 }}
+                          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                          transition={{ duration: 0.5, delay: 1.6 + index * 0.1 }}
+                        >
+                          {city.name}
+                        </motion.text>
+                      </g>
+                    ))}
+
+                    {/* Point central */}
+                    <motion.circle
+                      cx="40"
+                      cy="48"
+                      r="1.5"
+                      fill="rgba(255,255,255,0.8)"
+                      initial={{ scale: 0 }}
+                      animate={isInView ? { scale: 1 } : { scale: 0 }}
+                      transition={{ duration: 0.5, delay: 1.3 }}
+                    />
+                  </svg>
+                </div>
+
+                <div className="mt-3 text-[10px] font-mono text-zinc-500 text-center">
+                  50km • Bruxelles • Mons • Tournai
+                </div>
+              </div>
+            </motion.div>
 
            
           </motion.div>
