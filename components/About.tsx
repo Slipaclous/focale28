@@ -117,7 +117,7 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="md:col-span-9 space-y-6"
           >
-            <div className="prose prose-invert prose-lg max-w-none">
+            <div className="prose prose-invert prose-lg max-w-2xl">
               <p className="text-zinc-300 leading-relaxed font-serif text-lg">
                 Bienvenue chez <span className="text-white font-medium">focale 2.8 Photographie</span>, 
                 votre partenaire de confiance pour capturer et sublimer vos moments les plus précieux.
@@ -143,60 +143,35 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Section services - Liste élégante */}
+        {/* Section services - Liste horizontale */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="relative"
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="flex justify-center flex-wrap gap-4 md:gap-6 items-center"
         >
-          {/* En-tête de section */}
-          <div className="mb-8 flex items-center gap-4">
-            <div className="flex-1 h-px bg-zinc-800" />
-            <h3 className="text-sm font-mono text-zinc-400 uppercase tracking-widest">
-              Services
-            </h3>
-            <div className="flex-1 h-px bg-zinc-800" />
-          </div>
-
-          {/* Liste de services style minimaliste */}
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-1 border-l-2 border-zinc-800 pl-6">
-              {services.map((service, index) => (
-                <motion.div
-                  key={service}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ 
-                    delay: 1.4 + index * 0.08, 
-                    duration: 0.5,
-                  }}
-                  className="group relative py-3 border-b border-zinc-900 last:border-b-0"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      {/* Indicateur de ligne */}
-                      <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 border-2 border-zinc-800 bg-black group-hover:border-zinc-700 transition-colors rounded-full" />
-                      
-                      {/* Nom du service */}
-                      <span className="text-base md:text-lg text-zinc-300 font-serif group-hover:text-zinc-200 transition-colors">
-                        {service}
-                      </span>
-                    </div>
-
-                    {/* Séparateur décoratif */}
-                    <div className="flex-1 mx-4 h-px bg-zinc-900 group-hover:bg-zinc-800 transition-colors" />
-
-                    {/* Numéro de référence */}
-                    <div className="text-[10px] font-mono text-zinc-600 group-hover:text-zinc-500 transition-colors">
-                      {String(index + 1).padStart(2, '0')}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
+          {services.map((service, index) => (
+            <motion.div
+              key={service}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ 
+                delay: 1.0 + index * 0.05, 
+                duration: 0.5,
+              }}
+              className="flex items-center gap-4 md:gap-6"
+            >
+              {/* Nom du service */}
+              <span className="text-base md:text-lg text-zinc-300 font-serif hover:text-zinc-200 transition-colors">
+                {service}
+              </span>
+              
+              {/* Gros point séparateur (sauf pour le dernier) */}
+              {index < services.length - 1 && (
+                <span className="text-zinc-600 text-2xl">•</span>
+              )}
+            </motion.div>
+          ))}
         </motion.div>
       </div>
 

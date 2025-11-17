@@ -2,21 +2,20 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { Menu, X, Instagram, Facebook, Linkedin } from 'lucide-react'
+import { Menu, X, Instagram, Facebook, Youtube } from 'lucide-react'
 
 const navItems = [
   { name: 'Accueil', href: '#hero' },
   { name: 'À Propos', href: '#about' },
   { name: 'Portfolio', href: '#gallery' },
   { name: 'Témoignages', href: '#testimonials' },
-  { name: 'Rétrospective', href: '#retrospective' },
   { name: 'Contact', href: '#contact' },
 ]
 
 const socialLinks = [
   { name: 'Instagram', href: 'https://www.instagram.com/focale28', Icon: Instagram },
   { name: 'Facebook', href: 'https://www.facebook.com/focale28', Icon: Facebook },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/focale28', Icon: Linkedin },
+  { name: 'YouTube', href: 'https://www.youtube.com/@focale28', Icon: Youtube },
 ]
 
 export default function Navigation() {

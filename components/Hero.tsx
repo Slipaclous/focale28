@@ -164,34 +164,7 @@ export default function Hero() {
               </text>
             </svg>
 
-            {/* Annotations manuscrites style carnet de notes */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 0.7, x: 0 }}
-              transition={{ duration: 1, delay: 1.5 }}
-              className="absolute -left-20 top-1/2 -translate-y-1/2 hidden lg:block"
-            >
-              <div className="text-xs text-zinc-400 font-mono -rotate-12 space-y-1">
-                <div className="border-l-2 border-zinc-700 pl-2">
-                  <div>f/2.8</div>
-                  <div className="text-zinc-300">large ouv.</div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 0.7, x: 0 }}
-              transition={{ duration: 1, delay: 1.7 }}
-              className="absolute -right-20 top-1/2 -translate-y-1/2 hidden lg:block"
-            >
-              <div className="text-xs text-zinc-400 font-mono rotate-12 space-y-1">
-                <div className="border-r-2 border-zinc-700 pr-2 text-right">
-                  <div>bokeh</div>
-                  <div className="text-zinc-300">profond</div>
-                </div>
-              </div>
-            </motion.div>
+            
           </div>
         </motion.div>
 
@@ -204,7 +177,7 @@ export default function Hero() {
             className="relative"
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
-              Capturer l&apos;instant,
+              Un moment…
             </h1>
           </motion.div>
           
@@ -214,9 +187,20 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 2.1 }}
             className="relative"
           >
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
-              révéler l&apos;<span className="italic text-zinc-300">émotion</span>
-            </h2>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
+              Une pose…
+            </h1>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 2.4 }}
+            className="relative"
+          >
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
+              Une photo…
+            </h1>
           </motion.div>
         </motion.div>
 
@@ -291,41 +275,7 @@ export default function Hero() {
         </div>
       </motion.button>
 
-      {/* Informations techniques en bas (style métadonnées EXIF) */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 0.7, y: 0 }}
-        transition={{ duration: 1, delay: 3 }}
-        className="absolute bottom-6 left-6 z-10 hidden xl:block"
-      >
-        <div className="font-mono text-[10px] text-zinc-300 space-y-1 border-l-2 border-zinc-800 pl-3">
-          <div className="flex gap-4">
-            <span className="text-zinc-500">ISO</span>
-            <span>400</span>
-          </div>
-          <div className="flex gap-4">
-            <span className="text-zinc-500">SHUTTER</span>
-            <span>1/125s</span>
-          </div>
-          <div className="flex gap-4">
-            <span className="text-zinc-500">APERTURE</span>
-            <span>f/2.8</span>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 0.7, y: 0 }}
-        transition={{ duration: 1, delay: 3 }}
-        className="absolute bottom-6 right-6 z-10 hidden xl:block"
-      >
-        <div className="font-mono text-[10px] text-zinc-300 space-y-1 border-r-2 border-zinc-800 pr-3 text-right">
-          <div>FULL FRAME</div>
-          <div className="text-zinc-500">35mm EQUIV.</div>
-          <div>RAW + JPEG</div>
-        </div>
-      </motion.div>
+    
     </section>
   )
 }

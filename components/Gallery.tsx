@@ -2,9 +2,9 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
-import { X } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const galleryImages = [
   {
@@ -61,12 +61,80 @@ const galleryImages = [
     film: 'TRI-X 400',
     frame: '032B',
   },
+  {
+    id: 7,
+    src: '/images/Archi - Alain Heymans focale 2.8 - 13.jpg',
+    alt: 'Architecture',
+    title: 'Architecture',
+    settings: 'f/2.8 • ISO 400 • 1/125s',
+    film: 'KODAK 400',
+    frame: '013A',
+  },
+  {
+    id: 8,
+    src: '/images/Divers - Alain Heymans focale 2.8 -6.jpg',
+    alt: 'Divers',
+    title: 'Divers',
+    settings: 'f/2.8 • ISO 400 • 1/125s',
+    film: 'KODAK 400',
+    frame: '006A',
+  },
+  {
+    id: 9,
+    src: '/images/Night - Alain Heymans focale 2.8 -14.jpg',
+    alt: 'Nuit',
+    title: 'Nuit',
+    settings: 'f/2.8 • ISO 400 • 1/125s',
+    film: 'KODAK 400',
+    frame: '014A',
+  },
 ]
 
 export default function Gallery() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
+
+  // Fonction pour naviguer vers l'image précédente
+  const goToPrevious = () => {
+    if (selectedImage === null) return
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage)
+    const previousIndex = currentIndex > 0 ? currentIndex - 1 : galleryImages.length - 1
+    setSelectedImage(galleryImages[previousIndex].id)
+  }
+
+  // Fonction pour naviguer vers l'image suivante
+  const goToNext = () => {
+    if (selectedImage === null) return
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage)
+    const nextIndex = currentIndex < galleryImages.length - 1 ? currentIndex + 1 : 0
+    setSelectedImage(galleryImages[nextIndex].id)
+  }
+
+  // Gestion des touches du clavier
+  useEffect(() => {
+    if (selectedImage === null) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        const currentIndex = galleryImages.findIndex(img => img.id === selectedImage)
+        const previousIndex = currentIndex > 0 ? currentIndex - 1 : galleryImages.length - 1
+        setSelectedImage(galleryImages[previousIndex].id)
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        const currentIndex = galleryImages.findIndex(img => img.id === selectedImage)
+        const nextIndex = currentIndex < galleryImages.length - 1 ? currentIndex + 1 : 0
+        setSelectedImage(galleryImages[nextIndex].id)
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        setSelectedImage(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedImage])
 
   return (
     <>
@@ -247,78 +315,55 @@ export default function Gallery() {
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.9, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="relative max-w-6xl w-full"
+                  className="relative max-w-7xl w-full h-full flex items-center justify-center"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {/* Cadre de diapositive */}
-                  <div className="relative bg-white p-6 md:p-12 shadow-2xl">
-                    {/* Image principale */}
-                    <div className="relative aspect-[3/2] w-full bg-zinc-900">
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-contain"
-                        sizes="100vw"
-                        priority
-                      />
-                    </div>
+                  {/* Bouton navigation précédente */}
+                  <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      goToPrevious()
+                    }}
+                    className="absolute left-4 md:left-8 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-zinc-800 bg-black/60 backdrop-blur-sm hover:border-zinc-300 transition-colors duration-300 flex items-center justify-center group"
+                    aria-label="Image précédente"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 text-zinc-400 group-hover:text-zinc-200 transition-colors" />
+                  </motion.button>
 
-                    {/* Informations sous l'image style légende de tirage */}
-                    <div className="mt-6 space-y-3 border-t border-zinc-300 pt-6">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="text-xl md:text-2xl font-serif text-zinc-900 mb-2">
-                            {image.title}
-                          </h3>
-                          <div className="space-y-1">
-                            <p className="text-sm font-mono text-zinc-300">
-                              {image.settings}
-                            </p>
-                            <p className="text-xs font-mono text-zinc-400">
-                              Film: {image.film} • Frame: {image.frame}
-                            </p>
-                          </div>
-                        </div>
+                  {/* Bouton navigation suivante */}
+                  <motion.button
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      goToNext()
+                    }}
+                    className="absolute right-4 md:right-8 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-zinc-800 bg-black/60 backdrop-blur-sm hover:border-zinc-300 transition-colors duration-300 flex items-center justify-center group"
+                    aria-label="Image suivante"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ChevronRight className="w-6 h-6 md:w-7 md:h-7 text-zinc-400 group-hover:text-zinc-200 transition-colors" />
+                  </motion.button>
 
-                        {/* Tampon de validation */}
-                        <div className="hidden md:block">
-                          <div className="w-20 h-20 border-2 border-zinc-400 rounded-full flex items-center justify-center rotate-12 opacity-50">
-                            <div className="text-center">
-                              <div className="text-[10px] font-mono text-zinc-400 tracking-widest">
-                                APPROVED
-                              </div>
-                              <div className="text-xs font-mono text-zinc-300">
-                                2024
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Métadonnées techniques */}
-                      <div className="flex gap-6 text-[10px] font-mono text-zinc-400 pt-2 border-t border-zinc-200">
-                        <div>
-                          <span className="text-zinc-400">CAMERA:</span> Full Frame
-                        </div>
-                        <div>
-                          <span className="text-zinc-400">LENS:</span> 50mm f/1.4
-                        </div>
-                        <div>
-                          <span className="text-zinc-400">FORMAT:</span> RAW+JPEG
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Coins de fixation du tirage */}
-                    <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-zinc-300" />
-                    <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-zinc-300" />
-                    <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-zinc-300" />
-                    <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-zinc-300" />
+                  {/* Image principale */}
+                  <div className="relative w-full max-w-6xl h-[90vh] flex items-center justify-center px-16 md:px-20">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-contain"
+                      sizes="90vw"
+                      priority
+                      unoptimized={true}
+                    />
                   </div>
-
-                  {/* Ombre du tirage sur la table lumineuse */}
-                  <div className="absolute inset-0 -z-10 bg-zinc-900/50 blur-2xl transform translate-y-4" />
                 </motion.div>
               )
             })()}
