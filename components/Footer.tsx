@@ -9,6 +9,11 @@ const services = [
   'Cérémonies',
   'Portraits',
   'Reportages',
+  'anniversaire',
+  'Famille',
+  'Architecture',
+  'Divers',
+  'Nuit',
 ]
 
 export default function Footer() {
@@ -100,23 +105,23 @@ export default function Footer() {
               <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-widest mb-6 border-b border-zinc-900 pb-2">
                 Spécialités
               </h4>
-              <ul className="space-y-3">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {services.map((service, index) => (
                   <motion.li
                     key={service}
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
-                    className="flex items-center gap-2"
+                    transition={{ duration: 0.4, delay: 0.3 + index * 0.03 }}
+                    className="flex items-center gap-2 list-none"
                   >
-                    <div className="w-1 h-1 bg-zinc-800 rounded-full" />
+                    <div className="w-1 h-1 bg-zinc-800 rounded-full flex-shrink-0" />
                     <span className="text-sm text-zinc-400 font-serif">
                       {service}
                     </span>
                   </motion.li>
                 ))}
-              </ul>
+              </div>
 
               {/* Métadonnées */}
               <div className="mt-8 pt-6 border-t border-zinc-900">

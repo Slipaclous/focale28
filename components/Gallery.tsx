@@ -183,7 +183,7 @@ export default function Gallery() {
             <div className="mb-6 pb-4 border-b border-zinc-800/50">
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
                 <span>ROLL 001 • {galleryImages.length} FRAMES</span>
-                <span>DATE: {new Date().toLocaleDateString('fr-BE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
+               
               </div>
             </div>
 
