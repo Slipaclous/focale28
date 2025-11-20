@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { X, ChevronLeft, ChevronRight, Grid } from 'lucide-react'
 
@@ -334,19 +334,19 @@ export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
 
   // Navigation functions for Lightbox
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     if (!selectedImage || !selectedCategory) return
     const currentIndex = selectedCategory.images.findIndex(img => img.id === selectedImage.id)
     const previousIndex = currentIndex > 0 ? currentIndex - 1 : selectedCategory.images.length - 1
     setSelectedImage(selectedCategory.images[previousIndex])
-  }
+  }, [selectedImage, selectedCategory])
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     if (!selectedImage || !selectedCategory) return
     const currentIndex = selectedCategory.images.findIndex(img => img.id === selectedImage.id)
     const nextIndex = currentIndex < selectedCategory.images.length - 1 ? currentIndex + 1 : 0
     setSelectedImage(selectedCategory.images[nextIndex])
-  }
+  }, [selectedImage, selectedCategory])
 
   // Keyboard navigation
   useEffect(() => {
@@ -367,7 +367,7 @@ export default function Gallery() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedImage, selectedCategory])
+  }, [selectedImage, goToPrevious, goToNext])
 
   return (
     <>
@@ -433,7 +433,7 @@ export default function Gallery() {
                       <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 uppercase tracking-wider">
                         <span>{category.images.length} Photos</span>
                         <span className="w-1 h-1 bg-zinc-600 rounded-full" />
-                        <span>Voir l'album</span>
+                        <span>Voir l&apos;album</span>
                       </div>
                     </div>
                   </div>
