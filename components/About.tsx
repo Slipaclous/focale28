@@ -5,15 +5,14 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 const services = [
-  'Corporate',
-  'Team Building',
-  'Fête d\'Entreprise',
-  'Cérémonies',
-  'Anniversaire',
+  'Reportage',
+  'Evènement',
+  'Cérémonie',
+  'Portrait',
+  'Architecture',
   'Family Day',
-  'Lifestyle',
-  'Event',
   'Afterwork',
+  'Corporate'
 ]
 
 export default function About() {

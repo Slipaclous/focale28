@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Menu, X, Instagram, Facebook, Youtube } from 'lucide-react'
+import Image from 'next/image'
 
 const navItems = [
   { name: 'Accueil', href: '#hero' },
@@ -22,13 +23,13 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { scrollY } = useScroll()
-  
+
   const backgroundColor = useTransform(
     scrollY,
     [0, 100],
     ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.95)']
   )
-  
+
   const borderOpacity = useTransform(
     scrollY,
     [0, 100],
@@ -58,7 +59,7 @@ export default function Navigation() {
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       >
         {/* Bordure inférieure progressive */}
-        <motion.div 
+        <motion.div
           style={{ opacity: borderOpacity }}
           className="absolute bottom-0 left-0 right-0 h-px bg-zinc-800"
         />
@@ -72,32 +73,18 @@ export default function Navigation() {
                 e.preventDefault()
                 handleNavClick('#hero')
               }}
-              className="flex items-center gap-3 group relative z-10"
-              whileHover={{ x: 2 }}
-              whileTap={{ scale: 0.98 }}
+              className="relative z-10 block"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {/* Marque diaphragme simplifiée */}
-              <div className="relative w-10 h-10">
-                {/* Cercles concentriques */}
-                <div className="absolute inset-0 border border-zinc-700 rounded-full group-hover:border-zinc-500 transition-colors" />
-                <div className="absolute inset-2 border border-zinc-800 rounded-full" />
-                
-                {/* Centre */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-[10px] font-serif text-zinc-400 leading-none">f</div>
-                    <div className="text-xs font-serif text-zinc-400 leading-none">2.8</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="hidden sm:block">
-                <div className="text-base font-serif font-light text-zinc-200 tracking-wide leading-none">
-                  focale 2.8
-                </div>
-                <div className="text-[10px] font-mono text-zinc-400 tracking-widest uppercase leading-none mt-0.5">
-                  Photographie
-                </div>
+              <div className="relative w-56 h-16">
+                <Image
+                  src="/images/_Logo Focale blanc.png"
+                  alt="Focale 2.8 Logo"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                />
               </div>
             </motion.a>
 
@@ -216,7 +203,7 @@ export default function Navigation() {
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>
-                  
+
                   {/* Nom du menu */}
                   <span className="text-sm font-mono text-zinc-300 group-hover:text-zinc-100 uppercase tracking-wider transition-colors">
                     {item.name}

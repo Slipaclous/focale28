@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Mail, Phone, Globe, Facebook, Instagram, Youtube } from 'lucide-react'
+import Image from 'next/image'
 
 const services = [
   'Corporate',
@@ -34,13 +35,13 @@ export default function Footer() {
               transition={{ duration: 0.6 }}
             >
               {/* Logo minimaliste */}
-              <div className="mb-6">
-                <div className="text-3xl font-serif font-light text-zinc-200 tracking-wider mb-1">
-                  focale 2.8
-                </div>
-                <div className="text-xs font-mono text-zinc-400 tracking-widest uppercase">
-                  Photographie Événementielle
-                </div>
+              <div className="mb-6 relative w-48 h-16">
+                <Image
+                  src="/images/_Logo Focale blanc.png"
+                  alt="Focale 2.8 Logo"
+                  fill
+                  className="object-contain object-left"
+                />
               </div>
 
               {/* Tagline */}
@@ -54,7 +55,7 @@ export default function Footer() {
                 </p>
               </div>
 
-              
+
             </motion.div>
           </div>
 
@@ -88,8 +89,8 @@ export default function Footer() {
                     </div>
                   </a>
                 </li>
-               
-              
+
+
               </ul>
             </motion.div>
           </div>
@@ -155,15 +156,6 @@ export default function Footer() {
               Réseaux
             </div>
             <a
-              href="https://www.facebook.com/focale28"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"
-              aria-label="Facebook"
-            >
-              <Facebook className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
-            </a>
-            <a
               href="https://www.instagram.com/focale28"
               target="_blank"
               rel="noopener noreferrer"
@@ -172,6 +164,16 @@ export default function Footer() {
             >
               <Instagram className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
             </a>
+            <a
+              href="https://www.facebook.com/focale28"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"
+              aria-label="Facebook"
+            >
+              <Facebook className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
+            </a>
+            
             <a
               href="https://www.youtube.com/@focale28"
               target="_blank"
@@ -195,7 +197,7 @@ export default function Footer() {
         </motion.div>
 
         {/* Note d'archive en bas */}
-        
+
       </div>
 
     </footer>

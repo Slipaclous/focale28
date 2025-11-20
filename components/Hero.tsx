@@ -32,9 +32,9 @@ export default function Hero() {
   }
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="hero" 
+      id="hero"
       className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black"
     >
       {/* Bandes de film 35mm sur les côtés */}
@@ -66,7 +66,7 @@ export default function Hero() {
       </div>
 
       {/* Image de fond avec effet chambre noire */}
-      <motion.div 
+      <motion.div
         style={{ opacity, scale }}
         className="absolute inset-0 z-0 bg-black"
       >
@@ -93,78 +93,15 @@ export default function Hero() {
           className="mb-12"
         >
           <div className="relative inline-block">
-            {/* Diaphragme d'objectif stylisé */}
-            <svg 
-              viewBox="0 0 200 200" 
-              className="w-40 h-40 md:w-48 md:h-48 mx-auto"
-            >
-              {/* Lames du diaphragme */}
-              {[...Array(8)].map((_, i) => (
-                <motion.path
-                  key={i}
-                  d={`M 100 100 L ${100 + 60 * Math.cos((i * Math.PI) / 4)} ${100 + 60 * Math.sin((i * Math.PI) / 4)} L ${100 + 60 * Math.cos(((i + 1) * Math.PI) / 4)} ${100 + 60 * Math.sin(((i + 1) * Math.PI) / 4)} Z`}
-                  fill="none"
-                  stroke="rgba(255,255,255,0.15)"
-                  strokeWidth="0.5"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0.4, 0.6, 0.4] }}
-                  transition={{ 
-                    duration: 3, 
-                    delay: i * 0.1,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-              
-              {/* Cercle extérieur */}
-              <motion.circle
-                cx="100"
-                cy="100"
-                r="70"
-                fill="none"
-                stroke="rgba(255,255,255,0.2)"
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 2, ease: "easeInOut" }}
+            <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
+              <Image
+                src="/images/_Logo Focale blanc.png"
+                alt="Focale 2.8 Logo"
+                fill
+                className="object-contain"
+                priority
               />
-              
-              {/* Cercle intérieur */}
-              <motion.circle
-                cx="100"
-                cy="100"
-                r="35"
-                fill="rgba(0,0,0,0.6)"
-                stroke="rgba(255,255,255,0.3)"
-                strokeWidth="1.5"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-              
-              {/* Texte central */}
-              <text
-                x="100"
-                y="95"
-                textAnchor="middle"
-                className="fill-white font-serif text-2xl tracking-wider"
-                style={{ fontWeight: 300 }}
-              >
-                focale
-              </text>
-              <text
-                x="100"
-                y="115"
-                textAnchor="middle"
-                className="fill-zinc-400 font-serif text-4xl tracking-widest"
-                style={{ fontWeight: 200 }}
-              >
-                2.8
-              </text>
-            </svg>
-
-            
+            </div>
           </div>
         </motion.div>
 
@@ -180,7 +117,7 @@ export default function Hero() {
               Un moment…
             </h1>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -191,7 +128,7 @@ export default function Hero() {
               Une pose…
             </h1>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -254,7 +191,7 @@ export default function Hero() {
       <motion.button
         onClick={scrollToNext}
         initial={{ opacity: 0 }}
-        animate={{ 
+        animate={{
           opacity: isVisible ? 0.6 : 0,
         }}
         whileHover={{ opacity: 1, scale: 1.1 }}
@@ -275,7 +212,7 @@ export default function Hero() {
         </div>
       </motion.button>
 
-    
+
     </section>
   )
 }

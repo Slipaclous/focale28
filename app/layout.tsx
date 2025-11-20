@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     locale: "fr_BE",
     type: "website",
   },
+  icons: {
+    icon: '/images/_Logo Focale blanc.png',
+  },
 }
 
 export default function RootLayout({
