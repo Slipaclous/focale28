@@ -1,20 +1,19 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Mail, Phone, Globe, Facebook, Instagram, Youtube } from 'lucide-react'
+import { Mail, Phone, Globe, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react'
 import Image from 'next/image'
 
 const services = [
-  'Corporate',
-  'Team Building',
-  'Cérémonies',
-  'Portraits',
-  'Reportages',
-  'anniversaire',
-  'Famille',
+  'Reportage',
+  'Evènement',
+  'Cérémonie',
+  'Portrait',
   'Architecture',
-  'Divers',
-  'Nuit',
+  'Famille',
+  'Family Day',
+  'Afterwork',
+  'Corporate',
 ]
 
 export default function Footer() {
@@ -173,7 +172,7 @@ export default function Footer() {
             >
               <Facebook className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
             </a>
-            
+
             <a
               href="https://www.youtube.com/@focale28"
               target="_blank"
@@ -182,6 +181,15 @@ export default function Footer() {
               aria-label="YouTube"
             >
               <Youtube className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
+            </a>
+            <a
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
             </a>
           </div>
 

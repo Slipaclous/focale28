@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { Menu, X, Instagram, Facebook, Youtube } from 'lucide-react'
+import { Menu, X, Instagram, Facebook, Youtube, Linkedin } from 'lucide-react'
 import Image from 'next/image'
 
 const navItems = [
@@ -17,6 +17,7 @@ const socialLinks = [
   { name: 'Instagram', href: 'https://www.instagram.com/focale28', Icon: Instagram },
   { name: 'Facebook', href: 'https://www.facebook.com/focale28', Icon: Facebook },
   { name: 'YouTube', href: 'https://www.youtube.com/@focale28', Icon: Youtube },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/', Icon: Linkedin },
 ]
 
 export default function Navigation() {
@@ -86,6 +87,9 @@ export default function Navigation() {
                   priority
                 />
               </div>
+              <span className="absolute left-full top-1/2 -translate-y-1/2 ml-4 text-sm font-serif text-zinc-300 whitespace-nowrap hidden lg:block">
+                focale 2.8 Photographie
+              </span>
             </motion.a>
 
             {/* Menu Desktop - Style barre de mesure */}

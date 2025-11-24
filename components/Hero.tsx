@@ -90,7 +90,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8, rotate: -180 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.5, ease: [0.34, 1.56, 0.64, 1] }}
-          className="mb-12"
+          className="-mt-20 mb-12"
         >
           <div className="relative inline-block">
             <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
