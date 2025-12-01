@@ -25,6 +25,7 @@ type Category = {
 }
 
 // Original images data transformed into categories
+// remplacer archi 6 par archi 8
 const rawImages = [
   // Mariage
   {
@@ -221,7 +222,7 @@ const rawImages = [
   // Architecture
   {
     id: 7,
-    src: '/images/Archi - Alain Heymans focale 2.8 - 06.jpg',
+    src: '/images/Archi - Alain Heymans focale 2.8 -8.jpg',
     alt: 'Architecture',
     title: 'Architecture',
     settings: 'f/2.8 • ISO 400 • 1/125s',

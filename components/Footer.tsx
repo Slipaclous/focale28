@@ -11,7 +11,6 @@ const services = [
   'Portrait',
   'Architecture',
   'Famille',
-  'Family Day',
   'Afterwork',
   'Corporate',
 ]
@@ -155,7 +154,7 @@ export default function Footer() {
               Réseaux
             </div>
             <a
-              href="https://www.instagram.com/focale28"
+              href="https://www.instagram.com/focale2.8/"
               target="_blank"
               rel="noopener noreferrer"
               className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"
@@ -164,7 +163,7 @@ export default function Footer() {
               <Instagram className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
             </a>
             <a
-              href="https://www.facebook.com/focale28"
+              href="https://www.facebook.com/Focale28"
               target="_blank"
               rel="noopener noreferrer"
               className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"
@@ -174,7 +173,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://www.youtube.com/@focale28"
+              href="https://www.youtube.com/@focale2.83"
               target="_blank"
               rel="noopener noreferrer"
               className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"
@@ -183,7 +182,7 @@ export default function Footer() {
               <Youtube className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
             </a>
             <a
-              href="https://www.linkedin.com/"
+              href="https://www.linkedin.com/in/alain-heymans-5452aa4b/"
               target="_blank"
               rel="noopener noreferrer"
               className="group w-10 h-10 border border-zinc-900 bg-zinc-950 flex items-center justify-center hover:border-zinc-700 transition-colors"

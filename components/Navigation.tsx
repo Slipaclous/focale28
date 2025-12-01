@@ -14,10 +14,10 @@ const navItems = [
 ]
 
 const socialLinks = [
-  { name: 'Instagram', href: 'https://www.instagram.com/focale28', Icon: Instagram },
-  { name: 'Facebook', href: 'https://www.facebook.com/focale28', Icon: Facebook },
-  { name: 'YouTube', href: 'https://www.youtube.com/@focale28', Icon: Youtube },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/', Icon: Linkedin },
+  { name: 'Instagram', href: 'https://www.instagram.com/focale2.8/', Icon: Instagram },
+  { name: 'Facebook', href: 'https://www.facebook.com/Focale28', Icon: Facebook },
+  { name: 'YouTube', href: 'https://www.youtube.com/@focale2.83', Icon: Youtube },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/alain-heymans-5452aa4b/', Icon: Linkedin },
 ]
 
 export default function Navigation() {

@@ -93,7 +93,7 @@ export default function Hero() {
           className="-mt-20 mb-12"
         >
           <div className="relative inline-block">
-            <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
+            <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto">
               <Image
                 src="/images/_Logo Focale blanc.png"
                 alt="Focale 2.8 Logo"
