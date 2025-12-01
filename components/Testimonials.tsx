@@ -187,7 +187,7 @@ export default function Testimonials() {
           className="text-center"
         >
           <motion.a
-            href="https://www.google.com/maps/place/focale+2.8"
+            href="https://www.google.com/search?client=opera-gx&hs=Iz5&sca_esv=4aee882adbe694f9&sxsrf=AE3TifPM6N3VNA4ZpSBdQ027JtX5jOaVqQ:1764584675134&q=focale+2.8+Photographie+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2MTQxNTczMDAwNDAxMDU1NLU038DI-IpRJi0_OTEnVcFIz0IhICO_JD-9KLEgIzNVwbEss3gRK15pACu7sDdYAAAA&rldimm=4145760001040551597&tbm=lcl&hl=fr-BE&sa=X&ved=2ahUKEwiV9vKVlpyRAxWn_rsIHeboMLoQ9fQKegQIMRAF&biw=2518&bih=1281&dpr=1.5#lkt=LocalPoiReviews"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 group"
