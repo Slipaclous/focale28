@@ -95,7 +95,7 @@ export default function Testimonials() {
           <h2 className="text-5xl md:text-7xl font-serif font-extralight text-zinc-100 tracking-tight leading-tight mb-4">
             Ce que disent
             <br />
-            <span className="text-zinc-400 italic font-light">nos clients</span>
+            <span className="text-zinc-400 italic font-light">les clients</span>
           </h2>
 
           {/* Ligne de séparation */}
