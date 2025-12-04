@@ -24,8 +24,23 @@ export const metadata: Metadata = {
     title: "focale 2.8 Photographie",
     description: "Photographe événementiel professionnel - 15 ans d'expérience",
     url: "https://www.focale28.be",
+    siteName: "focale 2.8 Photographie",
     locale: "fr_BE",
     type: "website",
+    images: [
+      {
+        url: "https://www.focale28.be/images/focale%202.8%20corporate%20.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "focale 2.8 Photographie - Photographe événementiel professionnel",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "focale 2.8 Photographie",
+    description: "Photographe événementiel professionnel - 15 ans d'expérience",
+    images: ["https://www.focale28.be/images/focale%202.8%20corporate%20.jpeg"],
   },
   icons: {
     icon: '/images/_Logo Focale blanc.png',
