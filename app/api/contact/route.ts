@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
         // Envoi de l'email via Resend
         const { data, error } = await resend.emails.send({
-            from: 'Focale 2.8 <onboarding@resend.dev>', // À changer avec votre domaine vérifié sur Resend
+            from: 'Focale 2.8 <contact@focale28.be>',
             to: [process.env.CONTACT_EMAIL || 'focale2.8@gmail.com'],
             replyTo: email,
             subject: `Nouvelle demande de contact de ${name}`,
