@@ -9,16 +9,27 @@ export async function POST(request: Request) {
         const { name, email, phone, message, recaptchaToken } = body;
 
         // Vérification reCAPTCHA (si la clé secrète est configurée)
+        // Vérification reCAPTCHA obligatoire
         const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY;
-        if (recaptchaSecretKey && recaptchaToken) {
+
+        if (!recaptchaToken) {
+            return NextResponse.json(
+                { error: 'Token reCAPTCHA manquant' },
+                { status: 400 }
+            );
+        }
+
+        if (recaptchaSecretKey) {
             const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${recaptchaToken}`;
             const verificationResponse = await fetch(verificationUrl, { method: 'POST' });
             const verificationData = await verificationResponse.json();
 
-            if (!verificationData.success) {
-                console.error('Échec reCAPTCHA:', verificationData);
+            // Vérification de la validité du token ET du score
+            // Pour reCAPTCHA v3, un score < 0.5 est généralement considéré comme un bot
+            if (!verificationData.success || (verificationData.score && verificationData.score < 0.5)) {
+                console.error('Échec reCAPTCHA (Score trop bas ou token invalide):', verificationData);
                 return NextResponse.json(
-                    { error: 'Échec de la vérification reCAPTCHA' },
+                    { error: 'Échec de la vérification de sécurité (Score insuffisant)' },
                     { status: 400 }
                 );
             }
