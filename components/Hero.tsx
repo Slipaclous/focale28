@@ -37,6 +37,7 @@ export default function Hero() {
       id="hero"
       className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black"
     >
+      <h1 className="sr-only">focale 2.8 Photographie - Photographe Événementiel Professionnel</h1>
       {/* Bandes de film 35mm sur les côtés */}
       <div className="absolute left-0 top-0 bottom-0 w-12 bg-black border-r border-zinc-800 opacity-60 pointer-events-none">
         <div className="h-full flex flex-col justify-around py-4">
@@ -113,9 +114,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 1.8 }}
             className="relative"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
+            <div className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
               Un moment…
-            </h1>
+            </div>
           </motion.div>
 
           <motion.div
@@ -124,9 +125,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 2.1 }}
             className="relative"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
+            <div className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
               Une pose…
-            </h1>
+            </div>
           </motion.div>
 
           <motion.div
@@ -135,9 +136,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 2.4 }}
             className="relative"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
+            <div className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white tracking-tight leading-tight">
               Une photo…
-            </h1>
+            </div>
           </motion.div>
         </motion.div>
 

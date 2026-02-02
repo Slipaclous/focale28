@@ -56,6 +56,26 @@ export default function RootLayout({
   return (
     <html lang="fr" className="scroll-smooth">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'LocalBusiness',
+              name: 'focale 2.8 Photographie',
+              description:
+                "Photographe événementiel professionnel spécialisé en corporate, cérémonies et portraits en Belgique.",
+              image: 'https://www.focale28.be/images/_Logo Focale blanc.png',
+              url: 'https://www.focale28.be',
+              email: 'focale2.8@gmail.com',
+              address: {
+                '@type': 'PostalAddress',
+                addressCountry: 'BE',
+              },
+              priceRange: '$$',
+            }),
+          }}
+        />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
