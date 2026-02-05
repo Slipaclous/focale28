@@ -6,30 +6,48 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { name, email, phone, message, recaptchaToken } = body;
+        const { name, email, phone, message, recaptchaToken, address_confirm } = body;
 
-        // Vérification reCAPTCHA (si la clé secrète est configurée)
-        // Vérification reCAPTCHA obligatoire
+        // 1. Protection Anti-Spam (Honeypot)
+        // Si le champ caché est rempli, c'est un bot. On simule un succès pour ne pas l'alerter.
+        if (address_confirm) {
+            console.warn(`Spam détecté (Honeypot): ${email} - ${name}`);
+            return NextResponse.json({ success: true });
+        }
+
+        // 2. Vérification reCAPTCHA
         const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY;
 
-        if (!recaptchaToken) {
-            return NextResponse.json(
-                { error: 'Token reCAPTCHA manquant' },
-                { status: 400 }
-            );
+        if (!recaptchaSecretKey) {
+            console.error('ERREUR CRITIQUE: RECAPTCHA_SECRET_KEY manquante dans les variables d\'environnement');
+            // En production, on refuse l'envoi si la sécurité n'est pas active
+            if (process.env.NODE_ENV === 'production') {
+                return NextResponse.json(
+                    { error: 'Erreur de configuration du système de sécurité. Veuillez contacter l\'administrateur.' },
+                    { status: 500 }
+                );
+            }
+            // En dev, on log juste un warning si on veut tester sans
+            console.warn('Mode DEV: Envoi autorisé sans reCAPTCHA secret key');
         }
 
         if (recaptchaSecretKey) {
+            if (!recaptchaToken) {
+                return NextResponse.json(
+                    { error: 'Vérification de sécurité manquante' },
+                    { status: 400 }
+                );
+            }
+
             const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${recaptchaToken}`;
             const verificationResponse = await fetch(verificationUrl, { method: 'POST' });
             const verificationData = await verificationResponse.json();
 
-            // Vérification de la validité du token ET du score
-            // Pour reCAPTCHA v3, un score < 0.5 est généralement considéré comme un bot
-            if (!verificationData.success || (verificationData.score && verificationData.score < 0.5)) {
-                console.error('Échec reCAPTCHA (Score trop bas ou token invalide):', verificationData);
+            // S'assurer que le score est suffisant (0.7 pour être plus strict)
+            if (!verificationData.success || (verificationData.score && verificationData.score < 0.7)) {
+                console.error('Blocage reCAPTCHA:', verificationData);
                 return NextResponse.json(
-                    { error: 'Échec de la vérification de sécurité (Score insuffisant)' },
+                    { error: 'Vérification de sécurité échouée. Êtes-vous un robot ?' },
                     { status: 400 }
                 );
             }

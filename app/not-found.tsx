@@ -40,7 +40,7 @@ export default function NotFound() {
                         href="/"
                         className="inline-block border border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500 px-8 py-3 font-mono text-xs uppercase tracking-widest transition-all"
                     >
-                        Retour à l'accueil
+                        Retour à l&apos;accueil
                     </Link>
                 </div>
             </div>

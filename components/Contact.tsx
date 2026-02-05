@@ -6,12 +6,14 @@ import { useRef, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Mail, Phone, Globe, MapPin } from 'lucide-react'
 import Image from 'next/image'
+import Script from 'next/script'
 
 interface FormData {
   name: string
   email: string
   phone: string
   message: string
+  address_confirm?: string // Honeypot trap
 }
 
 declare global {
@@ -38,40 +40,15 @@ export default function Contact() {
     reset,
   } = useForm<FormData>()
 
-  // Charger le script reCAPTCHA
+  // Vérifier si reCAPTCHA est prêt
   useEffect(() => {
     const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
     if (!recaptchaSiteKey) {
       console.warn('NEXT_PUBLIC_RECAPTCHA_SITE_KEY non configurée, reCAPTCHA désactivé')
-      setRecaptchaLoaded(true) // Permettre l'envoi sans reCAPTCHA en développement
-      return
-    }
-
-    // Vérifier si le script est déjà chargé
-    if (window.grecaptcha) {
       setRecaptchaLoaded(true)
-      return
-    }
-
-    // Charger le script reCAPTCHA
-    const script = document.createElement('script')
-    script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`
-    script.async = true
-    script.defer = true
-    script.onload = () => {
-      window.grecaptcha.ready(() => {
-        setRecaptchaLoaded(true)
-      })
-    }
-    document.head.appendChild(script)
-
-    return () => {
-      // Nettoyer le script si le composant est démonté
-      const existingScript = document.querySelector(`script[src*="recaptcha"]`)
-      if (existingScript) {
-        // On ne supprime pas le script car il peut être utilisé ailleurs
-      }
+    } else if (window.grecaptcha) {
+      setRecaptchaLoaded(true)
     }
   }, [])
 
@@ -140,7 +117,7 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="mb-20 text-center"
         >
-         
+
 
           <h2 className="text-5xl md:text-7xl font-serif font-extralight text-zinc-100 tracking-tight mb-4">
             Prenons Contact
@@ -183,7 +160,7 @@ export default function Contact() {
                 {/* Introduction */}
                 <div className="border-l-2 border-zinc-800 pl-4 py-2">
                   <p className="text-base text-zinc-300 leading-relaxed font-serif">
-                    Vous avez un projet photographique ? Parlons-en ensemble. 
+                    Vous avez un projet photographique ? Parlons-en ensemble.
                     Chaque demande est unique et mérite une attention particulière.
                   </p>
                 </div>
@@ -208,7 +185,7 @@ export default function Contact() {
                     </div>
                   </motion.a>
 
-                 
+
                 </div>
 
                 {/* Horaires style annotation */}
@@ -251,7 +228,7 @@ export default function Contact() {
               </div>
             </motion.div>
 
-           
+
           </motion.div>
 
           {/* Colonne droite - Formulaire style fiche de commande */}
@@ -276,6 +253,18 @@ export default function Contact() {
               className="relative bg-zinc-950 border-2 border-zinc-900 p-8 shadow-2xl"
             >
               <div className="relative space-y-6">
+                {/* Honeypot field - invisible pour les humains */}
+                <div className="absolute opacity-0 -z-10 w-0 h-0 overflow-hidden pointer-events-none">
+                  <label htmlFor="address_confirm">Ne pas remplir ce champ</label>
+                  <input
+                    id="address_confirm"
+                    type="text"
+                    autoComplete="off"
+                    tabIndex={-1}
+                    {...register('address_confirm')}
+                  />
+                </div>
+
                 {/* Champ Nom */}
                 <div>
                   <label htmlFor="name" className="block text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2">
@@ -390,12 +379,12 @@ export default function Contact() {
                   >
                     <div className="relative bg-white text-black py-4 px-8 font-mono text-sm uppercase tracking-widest transition-all duration-300 group-hover:bg-zinc-200 disabled:group-hover:bg-white">
                       {isSubmitting ? 'Envoi en cours...' : 'Envoyer la demande'}
-                      
+
                       {/* Perforations décoratives */}
                       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-zinc-950 rounded-full" />
                       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-zinc-950 rounded-full" />
                     </div>
-                    
+
                     {/* Ombre */}
                     <div className="absolute inset-0 bg-zinc-800 translate-y-1 -z-10 transition-transform group-hover:translate-y-2" />
                   </motion.button>
@@ -425,6 +414,18 @@ export default function Contact() {
           [ DÉLAI DE RÉPONSE MOYEN : 24-48 HEURES ]
         </motion.div>
       </div>
+
+      {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          strategy="afterInteractive"
+          onLoad={() => {
+            window.grecaptcha.ready(() => {
+              setRecaptchaLoaded(true)
+            })
+          }}
+        />
+      )}
     </section>
   )
 }
