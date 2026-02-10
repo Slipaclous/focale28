@@ -68,7 +68,6 @@ export default function RootLayout({
                 "Photographe événementiel professionnel spécialisé en corporate, cérémonies et portraits en Belgique.",
               image: 'https://www.focale28.be/images/_Logo Focale blanc.png',
               url: 'https://www.focale28.be',
-              email: 'focale2.8@gmail.com',
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'BE',

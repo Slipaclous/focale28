@@ -32,6 +32,15 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false)
+  const [clientEmail, setClientEmail] = useState('')
+
+  useEffect(() => {
+    // Obfuscation simple pour éviter la lecture directe par les robots
+    const user = 'focale2.8'
+    const domain = 'gmail.com'
+    setClientEmail(`${user}@${domain}`)
+  }, [])
+
 
   const {
     register,
@@ -168,9 +177,10 @@ export default function Contact() {
                 {/* Informations de contact */}
                 <div className="space-y-4 pt-4">
                   <motion.a
-                    href="mailto:focale2.8@gmail.com"
+                    href={clientEmail ? `mailto:${clientEmail}` : '#'}
                     whileHover={{ x: 4 }}
                     className="group flex items-center gap-4 transition-all"
+                    onClick={(e) => !clientEmail && e.preventDefault()}
                   >
                     <div className="w-10 h-10 border border-zinc-800 bg-zinc-900/50 flex items-center justify-center group-hover:border-zinc-700 transition-colors">
                       <Mail className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
@@ -180,7 +190,7 @@ export default function Contact() {
                         Email
                       </div>
                       <div className="text-sm text-zinc-200 group-hover:text-white transition-colors font-mono">
-                        focale2.8@gmail.com
+                        {clientEmail || 'Chargement...'}
                       </div>
                     </div>
                   </motion.a>

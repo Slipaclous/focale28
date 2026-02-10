@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
 import { Mail, Phone, Globe, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react'
 import Image from 'next/image'
 
@@ -17,6 +18,14 @@ const services = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const [clientEmail, setClientEmail] = useState('')
+
+  useEffect(() => {
+    // Obfuscation simple pour éviter la lecture directe par les robots
+    const user = 'focale2.8'
+    const domain = 'gmail.com'
+    setClientEmail(`${user}@${domain}`)
+  }, [])
 
   return (
     <footer className="relative bg-black border-t-4 border-zinc-900 overflow-hidden">
@@ -71,8 +80,9 @@ export default function Footer() {
               <ul className="space-y-4">
                 <li>
                   <a
-                    href="mailto:focale2.8@gmail.com"
+                    href={clientEmail ? `mailto:${clientEmail}` : '#'}
                     className="group flex items-start gap-3 transition-all"
+                    onClick={(e) => !clientEmail && e.preventDefault()}
                   >
                     <div className="w-8 h-8 border border-zinc-900 bg-zinc-950 flex items-center justify-center group-hover:border-zinc-700 transition-colors mt-0.5">
                       <Mail className="w-4 h-4 text-zinc-300 group-hover:text-zinc-400 transition-colors" />
@@ -82,7 +92,7 @@ export default function Footer() {
                         Email
                       </div>
                       <div className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors font-mono break-all">
-                        focale2.8@gmail.com
+                        {clientEmail || 'Chargement...'}
                       </div>
                     </div>
                   </a>
